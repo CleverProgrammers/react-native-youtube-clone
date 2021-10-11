@@ -1,21 +1,23 @@
 import React from 'react'
 import { View, StyleSheet, Image, Text} from 'react-native'
+import moment from "moment";
 
-function Video() {
+function Video({ videoObj }) {
+
     return (
         <View style={styles.container}>
             <View style={styles.thumbnailContainer}>
                 <Text style={styles.time}>15:45</Text>
-                <Image style={styles.thumbnail} source={require("../assets/zoom-clone.jpg")} />
+                <Image style={styles.thumbnail} source={{ uri: `${videoObj.snippet.thumbnails.high.url}` }} />
             </View>
             <View style={styles.info}> 
                 <Image style={styles.infoLogo} source={require("../assets/cp-logo.png")}/>
                 <View style={styles.titles}>
-                    <Text style={styles.videoTitle}>Build a Zoom Clone with React Native</Text>
+                    <Text style={styles.videoTitle}>{videoObj.snippet.title}</Text>
                     <View style={styles.videoInfo}>
-                        <Text style={styles.videoInfoText}>CleverProgrammer ·</Text>
-                        <Text style={styles.videoInfoText}> 20K views ·</Text>
-                        <Text style={styles.videoInfoText}>2 hours ago</Text>
+                        <Text style={styles.videoInfoText}>{videoObj.snippet.channelTitle} ·</Text>
+                        <Text style={styles.videoInfoText}> 20K views · </Text>
+                        <Text style={styles.videoInfoText}>{moment(videoObj.snippet.publishedAt).startOf('day').fromNow()}</Text>
                     </View>
                 </View>
             </View>
